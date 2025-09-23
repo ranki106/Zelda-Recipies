@@ -70,6 +70,12 @@ export default function Header() {
                 > 
                     Breath of the Wild 
                 </MenuItem>
+                <MenuItem>
+                    Hyrule Warriors: Age of Calamity
+                </MenuItem>
+                <MenuItem>
+                    Skyward Sword
+                </MenuItem>
             </Menu>
         </header>
     )
