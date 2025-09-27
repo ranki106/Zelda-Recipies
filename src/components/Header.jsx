@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu, MenuItem, Tooltip, Button } from '@mui/material'
+import Dropdown from './dropdown.jsx'
+import DropdownItem from './dropdownItem.jsx'
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -20,63 +22,35 @@ export default function Header() {
             handleClick(event)
         }
     }
+
+    const games = [
+        { name: 'Echoes of Wisdom', path: '/echoes' },
+        { name: 'Tears of the Kingdom', path: '/tears' },
+        { name: 'Breath of the Wild', path: '/breath' },
+        { name: 'Hyrule Warriors: Age of Calamity', path: '/hyrule-warriors' },
+        { name: 'Skyward Sword', path: '/skyward-sword' },
+    ]
     
     return (
         <header className='app-header'>
             <Link to="/">
-                <h1>Zelda Recipe Site</h1>
+                <h1 class='text-red-400/25'>Zelda Recipe Site</h1>
             </Link>
-            <Button
-                id="game-select-button"
-                aria-controls={open ? 'game-select' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleButtonClick}
-            >
-                Games
-            </Button>
-            <Menu
-                id="game-select" 
-                anchorEl={anchorEl}
-                open={open}
-                close={handleClose} 
-                slotProps={{
-                    list: {
-                        'aria-labelledby': 'game-select-button'
-                    },
-                }}  
-            >
-                <MenuItem 
-                    onClick={ () => {
-                        navigate('/echoes')
-                        handleClose()
-                    }}
-                > 
-                    Echoes of Wisdom 
-                </MenuItem>
-                <MenuItem 
-                    onClick={ () => {
-                        navigate('/tears')
-                        handleClose()
-                    }}
-                > 
-                    Tears of the Kingdom
-                </MenuItem>
-                <MenuItem 
-                    onClick={ () => {
-                        navigate('/breath')
-                        handleClose()
-                    }}
-                > 
-                    Breath of the Wild 
-                </MenuItem>
-                <MenuItem>
-                    Hyrule Warriors: Age of Calamity
-                </MenuItem>
-                <MenuItem>
-                    Skyward Sword
-                </MenuItem>
-            </Menu>
+            
+            <Dropdown 
+                buttonText="Games" 
+                content={
+                   <>
+                        {games.map((game) => (
+                            <Link to={game.path} key={game.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <DropdownItem key={game.name}>
+                                    {game.name}
+                                </DropdownItem>
+                            </Link>
+                        ))}
+                   </>
+                }
+            />
         </header>
     )
 }
