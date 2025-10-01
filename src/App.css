@@ -1,149 +1,238 @@
+/* Zelda + cookbook themed global styles */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 @import "tailwindcss";
 
+/* color palette and variables */
+:root{
+  --parchment-1: #fbf6ec;
+  --parchment-2: #f6eed8;
+  --forest: #1f4d2e;
+  --amber: #c28f00;
+  --card-bg: rgba(255,250,240,0.98);
+  --muted: #7b8792;
+  --accent: #1f8a57; /* green */
+  --accent-2: #d59e2a; /* warm amber */
+  --shadow-1: 0 8px 30px rgba(18,25,15,0.06);
+  --shadow-2: 0 16px 48px rgba(18,25,15,0.12);
+  --radius: 12px;
+  --paper-pattern: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%);
+}
+
+/* base */
+* { box-sizing: border-box; }
+html,body,#root { min-height: 100vh; } /* ensure backgrounds cover entire viewport */
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: radial-gradient(circle at 10% 10%, rgba(210,200,170,0.06), transparent 10%),
+              linear-gradient(180deg, var(--parchment-1) 0%, var(--parchment-2) 100%);
+  background-attachment: fixed; /* keeps parchment effect consistent while scrolling */
+  background-size: cover;
+  color: #0b2b18;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  font-size: 16px;
+  padding-bottom: 4rem;
+}
+
+/* app root constraints */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  padding-top: 100px; /* room for fixed header */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
+/* header */
 .app-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
-  background: rgba(255,255,255,0.95);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  z-index: 9999;
+  padding: 0 1.25rem;
+  background: linear-gradient(180deg, rgba(255,250,240,0.95), rgba(255,250,236,0.88));
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(20,40,20,0.06);
+  z-index: 1200;
+  box-shadow: var(--shadow-1);
 }
 
-.app-header .app-title {
-  font-size: 3.25rem;
+/* header title - Zelda / cookbook vibe */
+.app-header a > .app-title, .app-header .app-title {
   margin: 0;
+  font-weight: 700;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+  font-size: 1.125rem;
+  font-family: 'Cinzel', serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
 }
+.app-header .app-title::before {
+  content: "▲"; /* subtle emblem */
+  color: var(--amber);
+  transform: rotate(0deg);
+  font-size: 0.9rem;
+  opacity: 0.95;
+  margin-right: 0.15rem;
+}
+.app-header a { text-decoration: none; display: inline-block; }
 
+/* header controls grouping */
 .app-header .header-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  display:flex; align-items:center; gap: 0.75rem;
 }
 
-.app-header .language-select select {
-  margin-left: 0.5rem;
-}
-
-/* make room for the fixed header */
-#root {
-  padding-top: 80px; /* header height + small offset */
-}
-
+/* dropdown button - parchment button */
 .dropdown-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  width: fit-content;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.2);
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  background: linear-gradient(180deg, rgba(255,252,240,0.95), rgba(250,243,220,0.95));
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(15,23,10,0.06);
   cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  border: 1px solid rgba(25,45,25,0.06);
+  color: var(--forest);
 }
+.dropdown-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); background: rgba(255,249,236,0.98); }
+.button-open { border-color: rgba(194,143,0,0.2); }
 
-.toggle-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1rem;
-}
-
-.dropdown-content {
-  position: absolute;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.2);
-  max-height: 40vh;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  opacity: 0;
-  transform: translateY(-5%);
-  transition: transofrm 150ms, ease-in-out, opacity 150ms ease-in-out;
-  pointer-events: none;
-}
-
-.dropdown-content::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
+/* dropdown content (parchment popup) */
 .dropdown {
   position: relative;
 }
-
-.button-open {
-  border: rgb(147, 197, 253) 2px solid;
+.dropdown-content {
+  position: absolute;
+  min-width: 14rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: stretch;
+  padding: 0.6rem;
+  margin-top: 0.6rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: var(--shadow-2);
+  max-height: 40vh;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-6%);
+  transition: transform 160ms ease, opacity 160ms ease;
+  pointer-events: none;
+  border: 1px solid rgba(25,45,25,0.06);
 }
-
 .content-open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
 }
-
 .dropdown-item {
-  padding: 0.5rem;
-  margin: 0.1rem;
-  width: 100%;
-  border-radius: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
   cursor: pointer;
+  color: #0b2b18;
+}
+.dropdown-item:hover { background: rgba(31,138,87,0.06); color: var(--accent); }
+
+/* typography helpers */
+h1,h2,h3,h4,h5,h6 { margin: 0 0 0.5rem 0; line-height: 1.15; font-family: 'Cinzel', serif; color: var(--forest); }
+p { margin: 0 0 0.75rem 0; color: #274033; font-family: Inter, system-ui, sans-serif; }
+
+/* page headings */
+h4 { font-size: 1.25rem; margin-top: 1rem; color: var(--forest); }
+
+/* recipes layout adjustments */
+.MuiGrid-root { --gap: 1rem; }
+
+/* Replaced width:100% (which forced cards to stretch). Use flex sizing + max-width */
+.MuiCard-root {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(15,23,10,0.06) !important;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  overflow: visible !important;
+  border: 1px solid rgba(20,40,20,0.04) !important;
+  flex: 0 1 360px;       /* allow cards to be responsive, shrink/grow */
+  max-width: 420px;      /* cap card width */
+  margin: 0.6rem;
+  background: linear-gradient(180deg, #fffdf6 0%, #fffaf0 100%);
+  border-left: 6px solid rgba(31,138,87,0.12);
 }
 
-.dropdown-item:hover {
-  background-color: rgb(240, 249, 255);
+/* card content */
+.MuiCardContent-root {
+  padding: 1rem 1.25rem !important;
+  text-align: left;
+}
+.MuiTypography-h6 { font-weight: 700; color: #14391e; font-family: 'Cinzel', serif; }
+.MuiTypography-body2 { color: #274033; font-family: Inter, sans-serif; }
+
+/* grid wrapper for cards - center and wrap */
+.recipes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* Expander styling */
+.MuiIconButton-root { padding: 6px 10px !important; }
+.MuiTypography-root.MuiTypography-button { font-size: 0.9rem; color: var(--accent); }
+
+/* Popper / Hover popup styling (parchment popup) */
+.MuiPopper-root > div,
+.popper-content {
+  border-radius: 10px;
+  box-shadow: var(--shadow-2);
+  background: linear-gradient(180deg, #fffaf0, #fff6e8);
+  border: 1px solid rgba(20,40,20,0.06);
+  padding: 0.8rem;
+  width: 18rem;
+  color: #0b2b18;
+  font-family: Inter, sans-serif;
+}
+.popper-content .font-bold { font-weight: 700; color: #12371f; }
+
+/* ingredient trigger styling */
+span.font-bold.text-blue-600.cursor-pointer {
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+span.font-bold.text-blue-600.cursor-pointer:hover { color: var(--accent-2); }
+
+/* utilities */
+.small-muted { font-size: 0.85rem; color: var(--muted); }
+.italic-muted { font-style: italic; color: #94a3b8; }
+
+/* links */
+a { color: var(--forest); text-decoration: none; font-weight: 600; }
+a:hover { text-decoration: underline; color: var(--accent-2); }
+
+/* scrollbar tweaks */
+.dropdown-content::-webkit-scrollbar,
+.MuiPopper-root > div::-webkit-scrollbar {
+  width: 8px;
+}
+.dropdown-content::-webkit-scrollbar-thumb,
+.MuiPopper-root > div::-webkit-scrollbar-thumb {
+  background: rgba(20,40,20,0.08);
+  border-radius: 8px;
+}
+
+/* small screens adjustments */
+@media (max-width: 900px) {
+  #root { padding: 1rem; padding-top: 90px; }
+  .MuiCard-root { max-width: 94%; margin: 0.6rem auto; }
+  .dropdown-content { min-width: 12rem; }
 }

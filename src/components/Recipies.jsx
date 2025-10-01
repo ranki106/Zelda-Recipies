@@ -1,41 +1,54 @@
-
-import { useState, useEffect } from 'react'
-import { echoesRecipes } from '../data/echoesdata'
 import { styled } from '@mui/material/styles'
-import { IconButton } from '@mui/material'
-import { Grid, Button, Card, CardContent, CardMedia, Typography, Collapse } from '@mui/material'
+import { Grid, Card, CardContent, Typography, CardMedia } from '@mui/material'
 import Expander from './Expand.jsx'
 
 const StyledCard = styled(Card)(({ theme }) => ({
-    width: '300px',
-    aspectRatio: '1 / 1',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-    height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: theme.spacing(1),
+  overflow: 'hidden',
+  margin: theme.spacing(1), // spacing between cards
 }));
 
 const StyledCardContent = styled(CardContent)({
-    flexGrow: 1,
-    overflow: 'hidden',
+  flexGrow: 1,
+  overflow: 'hidden',
 })
 
-export default function Recipes (props) {
-    return (
-        <>
-            <Grid container spacing={2}>
-                {props.recipes.map( (recipe, index) => (
-                    <Grid item xs={6} md={1} key={index}>
-                        <StyledCard variant='outlined'>
-                            <StyledCardContent>
-                                <Typography variant='h6' gutterBottom>No. {recipe.id} {recipe.name}</Typography>
-                                <Typography variant='body2' gutterBottom>{recipe.description}</Typography>
-                            </StyledCardContent>
-                            <Expander recipe={recipe} />
-                        </StyledCard>
-                    </Grid>
-                ))}
-            </Grid>
-        </>
-    )
+export default function Recipes(props) {
+  return (
+    <div className="recipes-grid"> {/* use themed grid class */}
+      <Grid container justifyContent="center">
+        {props.recipes.map((recipe, index) => (
+          <StyledCard key={index} variant="outlined">
+            <StyledCardContent>
+              <Typography variant='h6' gutterBottom>
+                No. {recipe.id} {recipe.name}
+              </Typography>
+              <Typography variant='body2' gutterBottom>
+                {recipe.description}
+              </Typography>
+              {recipe.image ? (
+                <CardMedia
+                  component="img"
+                  image={recipe.image}
+                  alt={recipe.name}
+                  sx={{
+                    width: 'auto',         
+                    height: 'auto',          
+                    objectFit: 'cover',    // crop to fit
+                    borderRadius: 1,       // small rounded corners
+                    display: 'block',      // make it a block so margins center it
+                    margin: '8px auto 0',  // center horizontally and add bottom spacing
+                  }}
+                />
+              ) : null}
+            </StyledCardContent>
+            <Expander recipe={recipe} />
+          </StyledCard>
+        ))}
+      </Grid>
+    </div>
+  )
 }
+

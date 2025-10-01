@@ -34,7 +34,7 @@ export default function Header() {
     return (
         <header className='app-header'>
             <Link to="/">
-                <h1 class='text-red-400/25'>Zelda Recipe Site</h1>
+                <h1 className='app-title'>Zelda Recipe Site</h1>
             </Link>
             
             <Dropdown 

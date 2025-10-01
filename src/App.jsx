@@ -4,14 +4,12 @@ import Home from './pages/Home'
 import Echoes from './pages/EoW'
 import Tears from './pages/TotK'
 import Breath from './pages/BotW'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Contact from './pages/Contact'
+import Skyward from './pages/Skyward'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <Router>
       <Routes>
@@ -30,6 +28,18 @@ function App() {
         <Route
           path="/breath"
           element={<Breath />}
+        />
+        <Route
+          path="/contact"
+          element={<Contact />}
+        />
+        <Route
+          path="/hyrule-warriors"
+          element={<Contact />}
+        />
+        <Route
+          path="/skyward-sword"
+          element={<Skyward />}
         />
       </Routes>
     </Router>

@@ -1,14 +1,14 @@
 import Header from '../components/Header.jsx'
-import { echoesRecipes, echoesMemo } from '../data/echoesdata.js'
+import { skywardPotions } from '../data/skywarddata.js'
 import Recipes from '../components/Recipies.jsx'
 import Memo from '../components/memo.jsx'
 
-export default function Echoes() {
+export default function Skyward() {
     return (
         <>
             <Header />
-            <Memo memo={echoesMemo}/>
-            <Recipes recipes={echoesRecipes} />
+            <Memo />
+            <Recipes recipes={skywardPotions} />
         </>
     )
 }
