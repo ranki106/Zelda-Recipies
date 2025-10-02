@@ -16,7 +16,6 @@ import { ingredients as echoesIngredients } from "../data/echoesdata";
             if not found in either, return null
     if none of the above conditions are met, return null
 */
-
 const resolve = (entry) => {
     if (!entry) return null;
     if (typeof entry !== "object") return null;
