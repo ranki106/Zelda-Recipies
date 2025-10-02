@@ -236,3 +236,17 @@ a:hover { text-decoration: underline; color: var(--accent-2); }
   .MuiCard-root { max-width: 94%; margin: 0.6rem auto; }
   .dropdown-content { min-width: 12rem; }
 }
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(20,40,20,0.1);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: Inter, sans-serif;
+  color: #0b2b18;
+  background: rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}

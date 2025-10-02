@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Popper from "@mui/material/Popper";
 import { ingredients as skyIngredients } from "../data/skywarddata.js";
 import { ingredients as echoesIngredients } from "../data/echoesdata.js";
+import resolve from "../components/resolveIngredients.js";
 
 export default function HoverPopup2({ recipe }) {
     //state and refs for popper
@@ -10,48 +11,6 @@ export default function HoverPopup2({ recipe }) {
 
     const setAnchorRef = (el, i) => {
         anchorRefs.current[i] = el;
-    };
-
-    //resolve function to get full ingredient details from id or return null if not found
-    //flow as follows:
-    /* 
-        pass in an entry to resolve. Can be a full entry or an id only
-        if there is no entry return null
-        if the entry isnt of type object return null
-        if the entry has a name property return the entry as is (assumed full)
-        if the entry id is not undefined
-            check if the entry has a source property
-                if source is Skyward, search skyIngredients for a matching id and return it or null if not found
-                if source is Echoes, search echoesIngredients for a matching id and return it or null if not found
-            if no source is specified, search skyIngredients and echoesIngredients for a matching id
-                if found in both, log a warning and return the skyward version
-                if found in one, return that one
-                if not found in either, return null
-        if none of the above conditions are met, return null
-    */
-    const resolve = (entry) => {
-        if (!entry) return null;
-        if (typeof entry !== "object") return null;
-        if (entry.name) return entry;
-        if (entry.id !== undefined) {
-            if (entry.source === "Skyward" ) {
-                return skyIngredients?.find((i) => i.id === entry.id) || null;
-            }
-            if (entry.source === "Echoes") {
-                return echoesIngredients?.find((i) => i.id === entry.id) || null;
-            }
-            
-            const skyMatch = skyIngredients?.find((i) => i.id === entry.id);
-            const echoesMatch = echoesIngredients?.find((i) => i.id === entry.id);
-
-            if (skyMatch && echoesMatch && skyMatch !== echoesMatch) {
-                console.warn(
-                    `Warning: Ingredient ID ${entry.id} found in both Skyward and Echoes datasets. Using Skyward version.`
-                )            
-            }
-            return skyMatch || echoesMatch || null;
-        }
-        return null;
     };
 
     // normalize lists (keep compact entries if present so qty is preserved)
@@ -96,7 +55,12 @@ export default function HoverPopup2({ recipe }) {
                             >
                                 {displayName}
                                 {item && item.qty ? <span className="small-muted"> ×{item.qty}</span> : null}
-                                <Popper open={openIndex === idx} anchorEl={anchorRefs.current[idx]} placement="bottom-start">
+                                <Popper 
+                                    open={openIndex === idx} 
+                                    anchorEl={anchorRefs.current[idx]} 
+                                    
+                                    placement="bottom-start"
+                                >
                                     <div className="popper-content bg-white border-gray-300 rounded-md shadow-lg p-4 w-64">
                                         <div className="font-bold mb-2">{displayName}</div>
                                         <div className="mb-2">{resolved ? resolved.description : ""}</div>
